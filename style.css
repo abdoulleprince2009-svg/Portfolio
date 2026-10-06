@@ -1,0 +1,1315 @@
+/* =========================================================
+   1. VARIABLES DU DESIGN
+   ---------------------------------------------------------
+   Toutes les couleurs et valeurs principales du site
+   sont regroupées ici.
+
+   L'intérêt : si tu veux changer l'identité visuelle
+   plus tard, tu peux modifier ces valeurs à un seul endroit.
+   ========================================================= */
+
+:root {
+    /* Couleurs principales */
+    --bg-color: #080d18;
+    --bg-secondary: #0d1424;
+    --card-color: #111a2b;
+
+    /* Couleur futuriste principale */
+    --primary-color: #2563eb;
+    --primary-light: #3b82f6;
+    --primary-glow: rgba(37, 99, 235, 0.35);
+
+    /* Texte */
+    --text-color: #e5e7eb;
+    --text-muted: #9ca3af;
+    --text-dark: #64748b;
+
+    /* Bordures */
+    --border-color: rgba(59, 130, 246, 0.25);
+
+    /* Effets */
+    --shadow: 0 15px 40px rgba(0, 0, 0, 0.35);
+    --glow: 0 0 30px rgba(37, 99, 235, 0.18);
+
+    /* Dimensions */
+    --max-width: 1150px;
+
+    /* Arrondis */
+    --radius-small: 8px;
+    --radius-medium: 14px;
+    --radius-large: 20px;
+
+    /* Transitions */
+    --transition: 0.3s ease;
+}
+
+
+/* =========================================================
+   2. RESET CSS
+   ---------------------------------------------------------
+   Les navigateurs ajoutent automatiquement des marges à
+   certains éléments.
+
+   On les remet à zéro pour contrôler nous-mêmes le design.
+   ========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   3. COMPORTEMENT DU HTML
+   ========================================================= */
+
+html {
+    /*
+        Permet d'avoir un défilement fluide lorsqu'on clique
+        sur un lien comme #apropos ou #contact.
+    */
+    scroll-behavior: smooth;
+
+    /*
+        Évite que le contenu d'une section soit caché
+        derrière le header lorsqu'on utilise une ancre.
+    */
+    scroll-padding-top: 100px;
+}
+
+
+/* =========================================================
+   4. BODY
+   ========================================================= */
+
+body {
+    /*
+        Couleur de fond générale.
+    */
+    background-color: var(--bg-color);
+
+    /*
+        Couleur du texte par défaut.
+    */
+    color: var(--text-color);
+
+    /*
+        Police système moderne.
+        Elle évite de dépendre d'une police externe.
+    */
+    font-family:
+        Inter,
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
+
+    /*
+        Hauteur de ligne générale.
+        1.6 signifie environ 1,6 fois la taille du texte.
+    */
+    line-height: 1.6;
+
+    /*
+        Empêche une barre horizontale accidentelle.
+    */
+    overflow-x: hidden;
+
+    /*
+        Position nécessaire pour certains effets
+        pseudo-éléments.
+    */
+    position: relative;
+}
+
+
+/* =========================================================
+   5. EFFET DE GRILLE FUTURISTE EN ARRIÈRE-PLAN
+   ---------------------------------------------------------
+   On utilise un pseudo-élément du body pour créer une
+   grille très discrète.
+
+   Cela donne l'impression d'un environnement technologique.
+   ========================================================= */
+
+body::before {
+    content: "";
+
+    position: fixed;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    z-index: -1;
+
+    opacity: 0.18;
+
+    background-image:
+        linear-gradient(
+            rgba(37, 99, 235, 0.08) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(37, 99, 235, 0.08) 1px,
+            transparent 1px
+        );
+
+    background-size: 50px 50px;
+
+    /*
+        Un léger fondu permet de ne pas avoir une grille
+        trop visible.
+    */
+    mask-image: linear-gradient(
+        to bottom,
+        black,
+        transparent 90%
+    );
+}
+
+
+/* =========================================================
+   6. STYLE GÉNÉRAL DES LIENS
+   ========================================================= */
+
+a {
+    color: inherit;
+
+    /*
+        On enlève le soulignement traditionnel des liens.
+        Nous allons créer notre propre design.
+    */
+    text-decoration: none;
+}
+
+
+/* =========================================================
+   7. IMAGES
+   ========================================================= */
+
+img {
+    /*
+        Une image ne dépassera jamais de son conteneur.
+    */
+    max-width: 100%;
+
+    height: auto;
+
+    display: block;
+}
+
+
+/* =========================================================
+   8. HEADER
+   ---------------------------------------------------------
+   Le header contient :
+   - FUTRYX
+   - la navigation
+   ========================================================= */
+
+header {
+    /*
+        Le header reste visible lorsque l'utilisateur descend.
+    */
+    position: sticky;
+
+    top: 0;
+
+    z-index: 1000;
+
+    /*
+        Effet de verre sombre.
+    */
+    background: rgba(8, 13, 24, 0.82);
+
+    backdrop-filter: blur(14px);
+
+    /*
+        Ligne discrète sous le header.
+    */
+    border-bottom: 1px solid var(--border-color);
+
+    /*
+        Organisation horizontale du logo et de la navigation.
+    */
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    /*
+        Espacement intérieur.
+    */
+    padding: 20px max(5%, calc((100% - var(--max-width)) / 2));
+
+    /*
+        Empêche les éléments de coller entre eux.
+    */
+    gap: 30px;
+}
+
+
+/* =========================================================
+   9. LOGO FUTRYX
+   ========================================================= */
+
+header > a {
+    /*
+        Taille du logo.
+    */
+    font-size: 1.5rem;
+
+    /*
+        Texte épais.
+    */
+    font-weight: 800;
+
+    /*
+        Espacement entre les lettres.
+    */
+    letter-spacing: 3px;
+
+    /*
+        Couleur bleue.
+    */
+    color: var(--primary-light);
+
+    /*
+        Lueur futuriste.
+    */
+    text-shadow: 0 0 18px var(--primary-glow);
+
+    /*
+        Empêche le logo de rétrécir si l'espace devient petit.
+    */
+    flex-shrink: 0;
+
+    transition: var(--transition);
+}
+
+
+/*
+    Effet lorsque la souris passe sur FUTRYX.
+*/
+header > a:hover {
+    color: #60a5fa;
+
+    text-shadow:
+        0 0 10px rgba(59, 130, 246, 0.8),
+        0 0 30px rgba(59, 130, 246, 0.4);
+}
+
+
+/* =========================================================
+   10. NAVIGATION
+   ========================================================= */
+
+nav {
+    display: flex;
+
+    align-items: center;
+
+    gap: 28px;
+}
+
+
+/* Liens de navigation */
+
+nav a {
+    position: relative;
+
+    color: var(--text-muted);
+
+    font-size: 0.95rem;
+
+    transition: var(--transition);
+}
+
+
+/*
+    Changement de couleur au survol.
+*/
+
+nav a:hover {
+    color: var(--text-color);
+}
+
+
+/*
+    Petite ligne lumineuse sous le lien.
+*/
+
+nav a::after {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+
+    bottom: -8px;
+
+    width: 0;
+
+    height: 2px;
+
+    background: var(--primary-light);
+
+    box-shadow: 0 0 10px var(--primary-light);
+
+    transition: width var(--transition);
+}
+
+
+/*
+    La ligne s'étend lorsque la souris passe dessus.
+*/
+
+nav a:hover::after {
+    width: 100%;
+}
+
+
+/* =========================================================
+   11. MAIN
+   ========================================================= */
+
+main {
+    /*
+        Largeur maximale du contenu.
+    */
+    width: min(90%, var(--max-width));
+
+    /*
+        Centre horizontalement le contenu.
+    */
+    margin: 0 auto;
+}
+
+
+/* =========================================================
+   12. SECTIONS
+   ========================================================= */
+
+section {
+    /*
+        Espace vertical entre les différentes parties.
+    */
+    padding: 110px 0;
+
+    /*
+        Position utilisée par certains effets.
+    */
+    position: relative;
+}
+
+
+/*
+    Tous les titres h2 des sections.
+*/
+
+section h2 {
+    font-size: clamp(2rem, 4vw, 3rem);
+
+    line-height: 1.1;
+
+    margin-bottom: 45px;
+
+    letter-spacing: -1px;
+}
+
+
+/*
+    Petit effet bleu devant les titres.
+*/
+
+section h2::before {
+    content: "//";
+
+    color: var(--primary-light);
+
+    margin-right: 12px;
+
+    font-size: 0.75em;
+
+    text-shadow: 0 0 15px var(--primary-color);
+}
+
+
+/* =========================================================
+   13. SECTION ACCUEIL / HERO
+   ========================================================= */
+
+#accueil {
+    /*
+        Minimum de hauteur pour donner de l'importance
+        à la première partie du site.
+    */
+    min-height: calc(100vh - 80px);
+
+    /*
+        Organisation verticale.
+    */
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    /*
+        On limite la largeur du contenu textuel.
+    */
+    max-width: 750px;
+}
+
+
+/*
+    Petit texte "Bonjour je suis".
+*/
+
+#accueil > p:first-child {
+    display: inline-block;
+
+    width: fit-content;
+
+    margin-bottom: 15px;
+
+    padding: 7px 14px;
+
+    border: 1px solid var(--border-color);
+
+    border-radius: 50px;
+
+    background: rgba(37, 99, 235, 0.08);
+
+    color: var(--primary-light);
+
+    font-size: 0.85rem;
+
+    letter-spacing: 1px;
+
+    /*
+        Petite lueur autour du badge.
+    */
+    box-shadow: 0 0 20px rgba(37, 99, 235, 0.08);
+}
+
+
+/*
+    Grand nom.
+*/
+
+#accueil h1 {
+    font-size: clamp(3rem, 8vw, 6rem);
+
+    line-height: 1;
+
+    margin-bottom: 25px;
+
+    letter-spacing: -3px;
+
+    /*
+        Dégradé sur le texte.
+    */
+    background: linear-gradient(
+        135deg,
+        #ffffff,
+        #60a5fa
+    );
+
+    /*
+        Permet au dégradé de remplir le texte.
+    */
+    -webkit-background-clip: text;
+
+    background-clip: text;
+
+    color: transparent;
+}
+
+
+/*
+    Première description sous le nom.
+*/
+
+#accueil > p:nth-of-type(2) {
+    color: var(--primary-light);
+
+    font-size: clamp(1.1rem, 2vw, 1.35rem);
+
+    font-weight: 500;
+
+    margin-bottom: 18px;
+}
+
+
+/*
+    Texte de présentation principal.
+*/
+
+#accueil > p:nth-of-type(3) {
+    color: var(--text-muted);
+
+    max-width: 680px;
+
+    margin-bottom: 35px;
+
+    font-size: 1.05rem;
+}
+
+
+/* =========================================================
+   14. BOUTONS DU HERO
+   ---------------------------------------------------------
+   Tes deux liens de la section accueil deviennent
+   visuellement des boutons.
+   ========================================================= */
+
+#accueil > a {
+    display: inline-block;
+
+    padding: 13px 22px;
+
+    border-radius: var(--radius-small);
+
+    font-weight: 600;
+
+    transition:
+        transform var(--transition),
+        background-color var(--transition),
+        border-color var(--transition),
+        box-shadow var(--transition);
+
+    /*
+        Pour pouvoir avoir deux boutons côte à côte.
+    */
+    margin-right: 10px;
+
+    margin-bottom: 10px;
+}
+
+
+/*
+    Premier bouton : Découvrir mes compétences.
+*/
+
+#accueil > a:first-of-type {
+    background: var(--primary-color);
+
+    border: 1px solid var(--primary-color);
+
+    color: white;
+
+    box-shadow:
+        0 0 20px rgba(37, 99, 235, 0.25);
+}
+
+
+/*
+    Effet du premier bouton.
+*/
+
+#accueil > a:first-of-type:hover {
+    background: var(--primary-light);
+
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 0 25px rgba(37, 99, 235, 0.45);
+}
+
+
+/*
+    Deuxième bouton.
+*/
+
+#accueil > a:last-of-type {
+    border: 1px solid var(--border-color);
+
+    background: rgba(17, 26, 43, 0.7);
+
+    color: var(--text-color);
+}
+
+
+/*
+    Effet du deuxième bouton.
+*/
+
+#accueil > a:last-of-type:hover {
+    border-color: var(--primary-light);
+
+    color: var(--primary-light);
+
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 0 20px rgba(37, 99, 235, 0.15);
+}
+
+
+/* =========================================================
+   15. DÉCORATION FUTURISTE DU HERO
+   ---------------------------------------------------------
+   Il n'y a actuellement aucune image dans ton HTML.
+
+   On utilise donc ::after pour créer une sorte de panneau
+   technologique décoratif uniquement avec CSS.
+   ========================================================= */
+
+
+
+
+/*
+    Petite lueur derrière le panneau.
+*/
+
+#accueil::before {
+    content: "";
+
+    position: absolute;
+
+    width: 350px;
+
+    height: 350px;
+
+    right: 0;
+
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    background: var(--primary-color);
+
+    opacity: 0.08;
+
+    filter: blur(100px);
+
+    border-radius: 50%;
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   16. SECTION À PROPOS
+   ========================================================= */
+
+#apropos {
+    /*
+        Une ligne très discrète au-dessus de la section.
+    */
+    border-top: 1px solid rgba(59, 130, 246, 0.08);
+}
+
+
+/*
+    Les deux h3 représentent :
+    - Qui suis-je ?
+    - Ma vision
+*/
+
+#apropos h3 {
+    color: var(--primary-light);
+
+    font-size: 1.15rem;
+
+    margin-top: 30px;
+
+    margin-bottom: 12px;
+}
+
+
+/*
+    Paragraphes de la section.
+*/
+
+#apropos p {
+    color: var(--text-muted);
+
+    max-width: 850px;
+
+    margin-bottom: 16px;
+}
+
+
+/*
+    FUTRYX dans le texte.
+*/
+
+#apropos strong {
+    color: var(--primary-light);
+
+    text-shadow:
+        0 0 12px rgba(37, 99, 235, 0.25);
+}
+
+
+/* =========================================================
+   17. SECTION COMPÉTENCES
+   ========================================================= */
+
+#competences {
+    border-top: 1px solid rgba(59, 130, 246, 0.08);
+}
+
+
+/*
+    La liste devient une grille.
+
+    4 compétences = 4 colonnes sur grand écran.
+*/
+
+#competences ul {
+    list-style: none;
+
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 20px;
+}
+
+
+/*
+    Chaque <li> devient une carte.
+*/
+
+#competences li {
+    position: relative;
+
+    padding: 35px 25px;
+
+    min-height: 150px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+
+    border: 1px solid var(--border-color);
+
+    border-radius: var(--radius-medium);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(17, 26, 43, 0.95),
+            rgba(13, 20, 36, 0.8)
+        );
+
+    color: var(--text-color);
+
+    font-size: 1.1rem;
+
+    font-weight: 600;
+
+    /*
+        Transition nécessaire pour l'effet hover.
+    */
+    transition:
+        transform var(--transition),
+        border-color var(--transition),
+        box-shadow var(--transition),
+        background var(--transition);
+
+    overflow: hidden;
+}
+
+
+/*
+    Petite ligne lumineuse en haut de chaque carte.
+*/
+
+#competences li::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+
+    left: 0;
+
+    width: 100%;
+
+    height: 2px;
+
+    background: var(--primary-color);
+
+    box-shadow:
+        0 0 15px var(--primary-color);
+
+    transform: scaleX(0);
+
+    transform-origin: left;
+
+    transition: transform var(--transition);
+}
+
+
+/*
+    Effet lorsque la souris passe sur une compétence.
+*/
+
+#competences li:hover {
+    transform: translateY(-8px);
+
+    border-color: rgba(59, 130, 246, 0.6);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(22, 36, 62, 0.95),
+            rgba(13, 20, 36, 0.95)
+        );
+
+    box-shadow:
+        0 15px 35px rgba(0, 0, 0, 0.3),
+        0 0 25px rgba(37, 99, 235, 0.12);
+}
+
+
+/*
+    La ligne supérieure apparaît au hover.
+*/
+
+#competences li:hover::before {
+    transform: scaleX(1);
+}
+
+
+/* =========================================================
+   18. SECTION CONTACT
+   ========================================================= */
+
+#contact {
+    border-top: 1px solid rgba(59, 130, 246, 0.08);
+
+    text-align: center;
+}
+
+
+/*
+    Le sous-titre.
+*/
+
+#contact h3 {
+    color: var(--text-muted);
+
+    font-size: 1.1rem;
+
+    font-weight: 400;
+
+    margin-top: -20px;
+
+    margin-bottom: 35px;
+}
+
+
+/*
+    <address> contient les liens de contact.
+*/
+
+#contact address {
+    font-style: normal;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    gap: 15px;
+}
+
+
+/*
+    Les liens deviennent des boutons.
+*/
+
+#contact address a {
+    display: inline-block;
+
+    padding: 13px 22px;
+
+    border-radius: var(--radius-small);
+
+    border: 1px solid var(--border-color);
+
+    background: var(--card-color);
+
+    color: var(--text-color);
+
+    font-weight: 600;
+
+    transition:
+        transform var(--transition),
+        border-color var(--transition),
+        color var(--transition),
+        box-shadow var(--transition);
+}
+
+
+/*
+    Effet hover sur les boutons contact.
+*/
+
+#contact address a:hover {
+    transform: translateY(-3px);
+
+    border-color: var(--primary-light);
+
+    color: var(--primary-light);
+
+    box-shadow:
+        0 0 25px rgba(37, 99, 235, 0.15);
+}
+
+
+/* =========================================================
+   19. FOOTER
+   ========================================================= */
+
+footer {
+    /*
+        Ligne au-dessus du footer.
+    */
+    border-top: 1px solid var(--border-color);
+
+    /*
+        Espace intérieur.
+    */
+    padding: 30px 5%;
+
+    /*
+        Centre le texte.
+    */
+    text-align: center;
+
+    /*
+        Texte discret.
+    */
+    color: var(--text-dark);
+
+    font-size: 0.9rem;
+}
+
+
+/*
+    FUTRYX dans le footer.
+*/
+
+footer p::first-line {
+    color: var(--text-muted);
+}
+
+
+/* =========================================================
+   20. ÉTATS DE FOCUS
+   ---------------------------------------------------------
+   Important pour l'accessibilité.
+
+   Lorsqu'une personne navigue au clavier avec TAB,
+   elle doit pouvoir voir quel lien est sélectionné.
+   ========================================================= */
+
+a:focus-visible {
+    outline: 2px solid var(--primary-light);
+
+    outline-offset: 5px;
+
+    border-radius: 4px;
+}
+
+
+/* =========================================================
+   21. SÉLECTION DU TEXTE
+   ---------------------------------------------------------
+   Petit détail visuel futuriste.
+   ========================================================= */
+
+::selection {
+    background: var(--primary-color);
+
+    color: white;
+}
+
+
+/* =========================================================
+   22. RESPONSIVE DESIGN — TABLETTES
+   ---------------------------------------------------------
+   À partir d'environ 900px, on réduit le panneau
+   décoratif du Hero et on adapte les compétences.
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+    /*
+        Le panneau futuriste devient plus petit.
+    */
+
+    #accueil::after {
+        width: 280px;
+
+        right: -40px;
+
+        opacity: 0.55;
+    }
+
+
+    /*
+        Les cartes de compétences passent à deux colonnes.
+    */
+
+    #competences ul {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+
+/* =========================================================
+   23. RESPONSIVE DESIGN — MOBILE
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    /*
+        Le header devient vertical.
+
+        FUTRYX sera au-dessus et la navigation en dessous.
+    */
+
+    header {
+        flex-direction: column;
+
+        padding: 16px 5%;
+
+        gap: 12px;
+    }
+
+
+    /*
+        La navigation peut revenir à la ligne.
+    */
+
+    nav {
+        width: 100%;
+
+        justify-content: center;
+
+        flex-wrap: wrap;
+
+        gap: 15px 20px;
+    }
+
+
+    nav a {
+        font-size: 0.9rem;
+    }
+
+
+    /*
+        On réduit légèrement l'espace vertical des sections.
+    */
+
+    section {
+        padding: 80px 0;
+    }
+
+
+    /*
+        Le Hero prend moins de place.
+    */
+
+    #accueil {
+        min-height: auto;
+
+        padding-top: 100px;
+
+        padding-bottom: 90px;
+    }
+
+
+    /*
+        Le panneau décoratif devient beaucoup plus discret
+        sur téléphone pour laisser la priorité au texte.
+    */
+
+    #accueil::after {
+        position: relative;
+
+        right: auto;
+
+        top: auto;
+
+        transform: none;
+
+        width: 100%;
+
+        margin-top: 45px;
+
+        opacity: 0.8;
+    }
+
+
+    /*
+        La lueur du panneau est également réduite.
+    */
+
+    #accueil::before {
+        width: 250px;
+
+        height: 250px;
+
+        right: 50%;
+
+        transform: translate(50%, -50%);
+
+        opacity: 0.05;
+    }
+
+
+    /*
+        Le grand titre devient plus petit.
+    */
+
+    #accueil h1 {
+        font-size: clamp(2.8rem, 13vw, 4.5rem);
+
+        letter-spacing: -2px;
+    }
+
+
+    /*
+        Les compétences passent à une seule colonne.
+    */
+
+    #competences ul {
+        grid-template-columns: 1fr;
+    }
+
+
+    /*
+        Les boutons prennent une largeur confortable.
+    */
+
+    #accueil > a {
+        margin-right: 5px;
+    }
+
+
+    /*
+        Les boutons de contact peuvent également s'étendre.
+    */
+
+    #contact address {
+        flex-direction: column;
+    }
+
+
+    #contact address a {
+        width: min(100%, 300px);
+    }
+}
+
+
+/* =========================================================
+   24. TRÈS PETITS ÉCRANS
+   ========================================================= */
+
+@media (max-width: 450px) {
+
+    /*
+        Navigation encore plus compacte.
+    */
+
+    nav {
+        gap: 10px 15px;
+    }
+
+
+    nav a {
+        font-size: 0.82rem;
+    }
+
+
+    /*
+        Réduction des espaces horizontaux.
+    */
+
+    main {
+        width: 88%;
+    }
+
+
+    /*
+        Les boutons du Hero prennent presque toute la largeur.
+    */
+
+    #accueil > a {
+        display: block;
+
+        width: 100%;
+
+        text-align: center;
+
+        margin-right: 0;
+    }
+
+
+    /*
+        Le panneau terminal devient plus compact.
+    */
+
+    #accueil::after {
+        padding: 20px;
+
+        font-size: 0.75rem;
+
+        overflow: hidden;
+    }
+
+
+    /*
+        Les titres de section sont légèrement réduits.
+    */
+
+    section h2 {
+        font-size: 2rem;
+    }
+}
+
+
+/* =========================================================
+   25. RESPECT DES PRÉFÉRENCES DE MOUVEMENT
+   ---------------------------------------------------------
+   Certaines personnes préfèrent réduire les animations.
+
+   Le navigateur peut nous indiquer cette préférence.
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    html {
+        scroll-behavior: auto;
+    }
+
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+
+        animation-iteration-count: 1 !important;
+
+        transition-duration: 0.01ms !important;
+    }
+}
